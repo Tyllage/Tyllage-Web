@@ -385,27 +385,6 @@ main:focus {
   object-fit: contain;
 }
 
-/* A soft ivory disc keeps the green mark legible on dark backgrounds. */
-.logo--light .logo__mark {
-  background: rgba(247, 248, 243, 0.94);
-  box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.35);
-}
-
-.logo--light .logo__mark img {
-  width: 40px;
-  height: 40px;
-}
-
-/* The footer's solid deep green is calm enough for the logo without a disc. */
-.site-footer .logo__mark {
-  background: none;
-  box-shadow: none;
-}
-
-.site-footer .logo__mark img {
-  width: 48px;
-  height: 48px;
-}
 
 .logo__word {
   font-family: var(--font-display);
