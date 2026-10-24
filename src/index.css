@@ -1165,8 +1165,15 @@ main:focus {
   border-bottom: 1px solid var(--border);
 }
 
+/* Lines the first icon and title up with the "Our purpose" eyebrow text opposite. */
 .challenge:first-child {
-  padding-top: 4px;
+  padding-top: 13px;
+}
+
+@media (max-width: 960px) {
+  .challenge:first-child {
+    padding-top: 4px;
+  }
 }
 
 .challenge__icon {
