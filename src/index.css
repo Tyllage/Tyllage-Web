@@ -396,6 +396,17 @@ main:focus {
   height: 40px;
 }
 
+/* The footer's solid deep green is calm enough for the logo without a disc. */
+.site-footer .logo__mark {
+  background: none;
+  box-shadow: none;
+}
+
+.site-footer .logo__mark img {
+  width: 48px;
+  height: 48px;
+}
+
 .logo__word {
   font-family: var(--font-display);
   font-weight: 800;
