@@ -125,9 +125,6 @@ export default function Technology() {
             ))}
           </ul>
         </div>
-        <p className="stack__note reveal" id="architecture">
-          This public website is a separate, static site. It has no database and no access to farm application data.
-        </p>
       </Section>
 
       <CtaBand

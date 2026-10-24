@@ -2866,12 +2866,6 @@ main:focus {
   font-size: 0.85rem;
 }
 
-.stack__note {
-  margin-top: 32px;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
 @media (max-width: 860px) {
   .stack {
     grid-template-columns: 1fr;
