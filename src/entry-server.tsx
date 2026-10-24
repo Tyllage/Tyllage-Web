@@ -1,7 +1,8 @@
 import { StrictMode } from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import App from './App';
+import { sceneComponents } from './components/Scene';
 import { canonicalUrl, OG_IMAGE, organizationJsonLd, pages, type PageMeta } from './data/seo';
 import { company } from './data/company';
 
@@ -52,4 +53,13 @@ export function renderHead(meta: PageMeta): string {
   ]
     .filter(Boolean)
     .join('\n    ');
+}
+
+export const siteUrl = company.siteUrl;
+
+/** Static SVG markup for every illustrated scene, written to dist/images/scenes/. */
+export function renderScenes(): Record<string, string> {
+  return Object.fromEntries(
+    Object.entries(sceneComponents).map(([name, Component]) => [name, renderToStaticMarkup(<Component />)]),
+  );
 }

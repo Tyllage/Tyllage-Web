@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 interface SectionProps {
   id?: string;
-  tone?: 'ivory' | 'white' | 'forest' | 'mist';
+  tone?: 'ivory' | 'white' | 'forest' | 'deep' | 'beige' | 'mist';
   className?: string;
   children: ReactNode;
   labelledBy?: string;

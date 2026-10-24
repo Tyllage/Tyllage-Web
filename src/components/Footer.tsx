@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
+import { Mail } from 'lucide-react';
 import { company } from '../data/company';
-import { projects } from '../data/projects';
-import { ExternalLink } from './ExternalLink';
+import { publicProjects } from '../data/projects';
 import { navItems } from '../data/navigation';
-import { Logo } from './Navbar';
+import { ExternalLink } from './ExternalLink';
+import { Logo } from './Logo';
 import { SocialLinks } from './SocialLinks';
+import { InstagramIcon, LinkedInIcon } from './Icons';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -18,9 +20,12 @@ export function Footer() {
             <Link to="/" aria-label={`${company.brandName} — home`}>
               <Logo tone="light" />
             </Link>
-            <p className="site-footer__legal-name">{company.legalName}</p>
             <p className="site-footer__tagline">{company.tagline}</p>
-            <SocialLinks tone="dark" />
+            <p className="site-footer__about">
+              A Singapore-based, female-founded AgriTech software startup building practical AI for agricultural
+              businesses.
+            </p>
+            <SocialLinks tone="dark" include={['linkedin', 'instagram', 'github']} />
           </div>
 
           <nav className="site-footer__col" aria-label="Company">
@@ -36,33 +41,21 @@ export function Footer() {
             </ul>
           </nav>
 
-          <nav className="site-footer__col" aria-label="Platform">
+          <nav className="site-footer__col" aria-label="Platform and projects">
             <h2 className="site-footer__heading">Platform</h2>
             <ul role="list">
               <li>
-                <Link to="/platform#core-capabilities">Core capabilities</Link>
+                <Link to="/platform#core-capabilities">Development areas</Link>
               </li>
               <li>
-                <Link to="/platform#future-capabilities">Future capabilities</Link>
+                <Link to="/technology#responsible-ai">Responsible AI</Link>
               </li>
-              <li>
-                <Link to="/technology">Responsible AI</Link>
-              </li>
-              <li>
-                <Link to="/technology#architecture">Architecture</Link>
-              </li>
-            </ul>
-          </nav>
-
-          <nav className="site-footer__col" aria-label="Projects">
-            <h2 className="site-footer__heading">Projects</h2>
-            <ul role="list">
-              {projects.map((p) => (
+              {publicProjects.map((p) => (
                 <li key={p.id}>
                   <Link to={`/projects#${p.id}`}>{p.name}</Link>
                 </li>
               ))}
-              {projects
+              {publicProjects
                 .filter((p) => p.link)
                 .map((p) => (
                   <li key={`${p.id}-link`}>
@@ -73,22 +66,25 @@ export function Footer() {
           </nav>
 
           <div className="site-footer__col">
-            <h2 className="site-footer__heading">Connect</h2>
-            <ul role="list">
+            <h2 className="site-footer__heading">Contact</h2>
+            <ul role="list" className="site-footer__contact">
+              {email && (
+                <li>
+                  <a href={`mailto:${email}`}>
+                    <Mail size={16} aria-hidden /> {email}
+                  </a>
+                </li>
+              )}
               <li>
-                <Link to="/contact">Partner with us</Link>
-              </li>
-              <li>
-                <ExternalLink href={company.social.linkedin}>LinkedIn</ExternalLink>
+                <ExternalLink href={company.social.linkedin}>
+                  <LinkedInIcon size={16} /> LinkedIn
+                </ExternalLink>
               </li>
               {company.social.instagram && (
                 <li>
-                  <ExternalLink href={company.social.instagram}>Instagram</ExternalLink>
-                </li>
-              )}
-              {email && (
-                <li>
-                  <a href={`mailto:${email}`}>{email}</a>
+                  <ExternalLink href={company.social.instagram}>
+                    <InstagramIcon size={16} /> Instagram
+                  </ExternalLink>
                 </li>
               )}
               {phone && (
@@ -101,10 +97,19 @@ export function Footer() {
           </div>
         </div>
 
+        <div className="site-footer__legal-block">
+          <p className="site-footer__entity">
+            <strong>{company.legalName}</strong>
+            <span>
+              Registered in {company.country} as a {company.entityType}.
+              {uen && <> UEN: {uen}</>}
+            </span>
+          </p>
+        </div>
+
         <div className="site-footer__bottom">
           <p>
-            Copyright © {year} {company.legalName}. All rights reserved.
-            {uen && <> UEN {uen}.</>} Registered in {company.country}.
+            © {year} {company.legalName}. All rights reserved.
           </p>
           <ul role="list" className="site-footer__legal">
             <li>

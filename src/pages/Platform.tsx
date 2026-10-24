@@ -1,21 +1,21 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Check, Info } from 'lucide-react';
+import { ArrowRight, Check, UserCheck } from 'lucide-react';
 import { Hero } from '../components/Hero';
 import { Section, SectionHeading } from '../components/Section';
 import { CtaBand } from '../components/CtaBand';
 import { StageBadge } from '../components/StageBadge';
-import {
-  coreCapabilities,
-  futureCapabilities,
-  howItWorks,
-  stageDescriptions,
-  stageLabels,
-  type CapabilityStage,
-} from '../data/platform';
+import { coreCapabilities, futureCapabilities, journey, stageDescriptions, type CapabilityStage } from '../data/platform';
 import { pages } from '../data/seo';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const stages: CapabilityStage[] = ['prototype', 'mvp', 'concept'];
+
+const staffInControl = [
+  'Prices are never changed automatically.',
+  'Production and harvest decisions stay with the farm.',
+  'Customer messages are only sent after a person approves them.',
+  'Customer data is used only for the farm’s own operations.',
+];
 
 export default function Platform() {
   usePageMeta(pages.platform);
@@ -24,31 +24,30 @@ export default function Platform() {
     <>
       <Hero
         eyebrow="Our platform"
-        title="The emerging Tyllage farm intelligence platform."
-        lead="A connected set of tools to help agricultural businesses match harvest availability with customer demand, run sales operations smoothly and make better-informed commercial decisions."
+        title={
+          <>
+            Practical tools for the <em className="serif-accent">business of farming.</em>
+          </>
+        }
+        lead="We are developing a connected set of tools to help farm teams match upcoming harvests with customer demand, manage enquiries and sales, and make better-informed commercial decisions."
+        media="seedlings"
         actions={
-          <Link to="/contact" className="btn btn--accent">
+          <Link to="/contact" className="btn btn--primary">
             Discuss a pilot <ArrowRight size={18} aria-hidden />
           </Link>
         }
       />
 
-      {/* Stage legend */}
-      <Section tone="white" labelledBy="stages-title" className="section--tight">
-        <div className="stage-legend reveal">
-          <div className="stage-legend__intro">
-            <Info size={20} aria-hidden />
-            <div>
-              <h2 id="stages-title" className="h4">
-                Where each capability stands
-              </h2>
-              <p>
-                The platform is in early development. We label every capability honestly so that partners know what
-                exists today and what is planned.
-              </p>
-            </div>
-          </div>
-          <dl className="stage-legend__list">
+      {/* Core */}
+      <Section tone="white" id="core-capabilities" labelledBy="core-title">
+        <div className="split split--top">
+          <SectionHeading
+            id="core-title"
+            eyebrow="Core development areas"
+            title="Six capabilities, one connected workflow."
+            intro="Our current development focus. Each is designed to work with simple inputs, without sensors or years of historical data."
+          />
+          <dl className="stage-key reveal" aria-label="What the stage labels mean">
             {stages.map((s) => (
               <div key={s}>
                 <dt>
@@ -59,21 +58,11 @@ export default function Platform() {
             ))}
           </dl>
         </div>
-      </Section>
-
-      {/* Core */}
-      <Section tone="ivory" id="core-capabilities" labelledBy="core-title">
-        <SectionHeading
-          id="core-title"
-          eyebrow="Core capabilities"
-          title="Six capabilities, one connected workflow."
-          intro="Our current development focus — each designed to work with simple inputs and to keep people in control."
-        />
         <div className="capability-grid">
           {coreCapabilities.map(({ id, name, icon: Icon, stage, summary, points }, i) => (
             <article key={id} id={id} className="capability-card reveal" style={{ ['--delay' as string]: `${(i % 3) * 70}ms` }}>
               <div className="capability-card__top">
-                <span className="feature-card__icon">
+                <span className="capability-card__icon">
                   <Icon size={22} aria-hidden />
                 </span>
                 <StageBadge stage={stage} />
@@ -92,53 +81,67 @@ export default function Platform() {
         </div>
       </Section>
 
-      {/* Flow */}
-      <Section tone="forest" labelledBy="flow-title" className="section--pattern">
-        <SectionHeading
-          id="flow-title"
-          eyebrow="How the platform fits together"
-          title="Designed around the way farms sell."
-          tone="light"
-          align="center"
-        />
-        <ol className="steps steps--dark" role="list">
-          {howItWorks.map((s, i) => (
-            <li key={s.step} className="step reveal" style={{ ['--delay' as string]: `${i * 90}ms` }}>
-              <span className="step__number" aria-hidden>
-                {s.step}
-              </span>
-              <h3 className="step__title">
-                <span className="sr-only">Step {i + 1}: </span>
-                {s.title}
-              </h3>
-              <p className="step__text">{s.text}</p>
-            </li>
-          ))}
-        </ol>
+      {/* People in control */}
+      <Section tone="forest" labelledBy="control-title" className="section--texture">
+        <div className="control">
+          <div className="reveal">
+            <p className="eyebrow eyebrow--light">AI that supports farm staff</p>
+            <h2 id="control-title" className="h2">
+              Recommendations, not autopilot.
+            </h2>
+            <p className="control__lead">
+              Tyllage’s AI suggests, drafts and highlights. Farm staff review, decide and act. It does not
+              autonomously control prices, production decisions or customer data.
+            </p>
+            <ul className="control__list" role="list">
+              {staffInControl.map((item) => (
+                <li key={item}>
+                  <UserCheck size={18} aria-hidden /> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <ol className="mini-journey reveal" role="list" aria-label="How a recommendation becomes an action">
+            {journey.map(({ title, icon: Icon }, i) => (
+              <li key={title} className={title === 'Farm Approval' ? 'is-highlight' : undefined}>
+                <span className="mini-journey__icon">
+                  <Icon size={18} aria-hidden />
+                </span>
+                <span>
+                  <span className="sr-only">Step {i + 1}: </span>
+                  {title}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
       </Section>
 
       {/* Future */}
-      <Section tone="white" id="future-capabilities" labelledBy="future-title">
-        <SectionHeading
-          id="future-title"
-          eyebrow="Roadmap"
-          title="Future capabilities we are exploring."
-          intro={`These are ${stageLabels.concept.toLowerCase()}s — research directions, not products in development or in use. Their scope and timing may change.`}
-        />
-        <ul className="future-grid" role="list">
-          {futureCapabilities.map(({ id, name, icon: Icon, summary, stage }, i) => (
-            <li key={id} className="future-card reveal" style={{ ['--delay' as string]: `${(i % 3) * 70}ms` }}>
-              <span className="future-card__icon">
-                <Icon size={20} aria-hidden />
-              </span>
-              <div>
-                <h3 className="future-card__title">{name}</h3>
-                <p className="future-card__text">{summary}</p>
-                <StageBadge stage={stage} />
-              </div>
-            </li>
-          ))}
-        </ul>
+      <Section tone="ivory" id="future-capabilities" labelledBy="future-title" className="section--tight-bottom">
+        <div className="future">
+          <div className="future__intro reveal">
+            <p className="eyebrow">On the horizon</p>
+            <h2 id="future-title" className="h3">
+              Future concepts
+            </h2>
+            <p className="muted">
+              Research directions we may explore once the core platform is proven. They are not in development or
+              in use, and their scope may change.
+            </p>
+          </div>
+          <ul className="future__list reveal" role="list">
+            {futureCapabilities.map(({ id, name, icon: Icon, summary }) => (
+              <li key={id}>
+                <Icon size={18} aria-hidden />
+                <div>
+                  <strong>{name}</strong>
+                  <span>{summary}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </Section>
 
       <CtaBand

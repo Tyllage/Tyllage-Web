@@ -32,6 +32,8 @@ jobs:
         env:
           # Optional. Set as a repository variable once the enquiry API exists.
           VITE_CONTACT_ENDPOINT: ${{ vars.VITE_CONTACT_ENDPOINT }}
+          # Optional. Defaults to https://tyllage.org.
+          VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
 
       - uses: actions/upload-artifact@v4
         with:

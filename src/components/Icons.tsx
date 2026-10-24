@@ -51,14 +51,3 @@ export function GitHubIcon(props: IconProps) {
   );
 }
 
-/** The Tyllage mark: a furrowed field line, a stem and a single leaf. */
-export function TyllageMark({ size = 32, ...rest }: IconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden focusable={false} {...rest}>
-      <rect width="32" height="32" rx="9" fill="#173D32" />
-      <path d="M7.5 11.5Q16 6.8 24.5 11.5" fill="none" stroke="#74B49B" strokeWidth="2.6" strokeLinecap="round" />
-      <path d="M16 10.2V24.5" fill="none" stroke="#F7F8F3" strokeWidth="2.6" strokeLinecap="round" />
-      <path d="M16 19.2c0-3.4 2.6-5.9 6.2-5.9 0 3.4-2.6 5.9-6.2 5.9z" fill="#74B49B" />
-    </svg>
-  );
-}

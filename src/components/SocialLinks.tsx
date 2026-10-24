@@ -42,7 +42,8 @@ function getSocialProfiles(include: SocialKey[] = ['linkedin', 'instagram', 'git
 interface SocialLinksProps {
   /** `icons`: compact round icons. `list`: icon plus label. `cards`: “Follow Our Journey” cards. */
   variant?: 'icons' | 'list' | 'cards';
-  tone?: 'light' | 'dark';
+  /** `hero`: light icons for the transparent header over the homepage hero. */
+  tone?: 'light' | 'dark' | 'hero';
   include?: SocialKey[];
   className?: string;
 }

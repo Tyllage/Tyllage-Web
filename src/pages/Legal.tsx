@@ -22,7 +22,7 @@ export function Privacy() {
   usePageMeta(pages.privacy);
   return (
     <>
-      <Hero eyebrow="Legal" title="Privacy Policy" lead={`How ${company.legalName} handles personal data submitted through this website.`} />
+      <Hero variant="plain" eyebrow="Legal" title="Privacy Policy" lead={`How ${company.legalName} handles personal data submitted through this website.`} />
       <section className="section section--white" aria-label="Privacy Policy">
         <div className="container legal">
           <p className="legal__updated">Last updated: {LAST_UPDATED}</p>
@@ -36,14 +36,19 @@ export function Privacy() {
 
           <h2>2. Information we collect</h2>
           <p>
-            We only collect personal data that you choose to give us — for example, through the enquiry form on our{' '}
-            <Link to="/contact">Contact</Link> page. This may include your name, organisation, email address,
-            organisation type and the content of your message.
+            We only collect personal data that you choose to give us — for example, when you email us or use the
+            enquiry form on our <Link to="/contact">Contact</Link> page. This may include your name, organisation,
+            email address, organisation type and the content of your message.
+          </p>
+          <p>
+            The enquiry form does not store your details on this website. It prepares an email in your own email
+            application, and your enquiry reaches us only if you choose to send that email.
           </p>
           <p>
             This website does not use advertising or analytics cookies. Our hosting and content delivery providers may
             process standard technical information (such as IP address and browser type) in server logs for security and
-            reliability purposes.
+            reliability purposes. Web fonts are loaded from Google Fonts, which receives your IP address when fonts are
+            requested.
           </p>
 
           <h2>3. How we use your information</h2>
@@ -69,8 +74,9 @@ export function Privacy() {
 
           <h2>6. Third-party websites</h2>
           <p>
-            Our website links to external sites, including LinkedIn and project prototypes. Those sites have their own
-            privacy practices, which we do not control.
+            Our website links to external sites, including LinkedIn, Instagram and our project prototype. The optional
+            prototype preview on the Projects page loads the prototype site only when you choose to open it. Those sites
+            have their own privacy practices, which we do not control.
           </p>
 
           <h2>7. Your choices</h2>
@@ -91,7 +97,7 @@ export function Terms() {
   usePageMeta(pages.terms);
   return (
     <>
-      <Hero eyebrow="Legal" title="Terms of Use" lead={`The terms that apply when you use the ${company.legalName} website.`} />
+      <Hero variant="plain" eyebrow="Legal" title="Terms of Use" lead={`The terms that apply when you use the ${company.legalName} website.`} />
       <section className="section section--white" aria-label="Terms of Use">
         <div className="container legal">
           <p className="legal__updated">Last updated: {LAST_UPDATED}</p>

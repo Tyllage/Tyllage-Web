@@ -8,47 +8,59 @@
 
 export interface Founder {
   name: string;
-  /** Verified role. "Founding Partner" reflects the LLP's two founding partners. */
+  /** Verified role. Use "Founding Partner" until a more specific role is confirmed. */
   role: string;
   /** Verified biography. Leave `null` until approved by the founder. */
   bio: string | null;
   /** Personal LinkedIn profile URL, if the founder wishes to share it. */
   linkedin: string | null;
-  /** Path under /public, e.g. "/images/founders/felicia-tan.jpg". */
+  /**
+   * Real, approved photo under /public, e.g. "/images/founders/felicia-tan.jpg".
+   * Never use AI-generated or stock portraits here.
+   */
   photo: string | null;
 }
 
 export interface CompanyContact {
-  /** Public enquiry email, e.g. "hello@tyllage.com". `null` hides it. */
+  /** Public enquiry email. `null` hides it. */
   email: string | null;
   /** Public phone number in international format. `null` hides it. */
   phone: string | null;
   /** Registered or correspondence address. `null` hides it. */
   address: string | null;
-  /** ACRA Unique Entity Number. `null` hides it. */
+  /**
+   * ACRA Unique Entity Number. Verify against the latest ACRA Business
+   * Profile before each publication. `null` hides it.
+   */
   uen: string | null;
 }
 
 export interface SocialProfiles {
   linkedin: string;
-  /** Set to the official Instagram URL once available, e.g. "https://www.instagram.com/<handle>/". */
   instagram: string | null;
   /** Official GitHub organisation URL, if one should be shown publicly. */
   github: string | null;
 }
 
+/**
+ * Production domain, used for canonical URLs, Open Graph tags, structured
+ * data, robots.txt and the sitemap. It is metadata only and is never shown
+ * to visitors as a link. Override at build time with VITE_SITE_URL (for
+ * example while the site is hosted on a temporary address).
+ */
+const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://tyllage.org').trim().replace(/\/+$/, '');
+
 const social: SocialProfiles = {
   linkedin: 'https://www.linkedin.com/company/tyllage-llp',
-  // INSTAGRAM_URL_TO_BE_PROVIDED — replace `null` with the official URL.
-  instagram: null,
+  instagram: 'https://www.instagram.com/tyllage.llp/',
   github: null,
 };
 
 const contact: CompanyContact = {
-  email: null,
+  email: 'tyllage.co@gmail.com',
   phone: null,
   address: null,
-  uen: null,
+  uen: 'T26LL1129K',
 };
 
 const founders: Founder[] = [
@@ -72,16 +84,18 @@ export const company = {
   legalName: 'Tyllage LLP',
   brandName: 'Tyllage',
   tagline: 'From Harvest to Demand.',
-  industry: 'Software Development / AgriTech / Artificial Intelligence',
+  industry: 'AgriTech / Artificial Intelligence / Software Development',
   country: 'Singapore',
   countryCode: 'SG',
-  siteUrl: 'https://tyllage.com',
+  entityType: 'Limited Liability Partnership',
+  siteUrl,
+  logo: '/logo/2.png',
   description:
-    'Tyllage is an emerging Singapore AgriTech software startup developing AI-powered farm sales and operational intelligence solutions.',
+    'Tyllage is a Singapore-based, female-founded AgriTech software startup developing practical AI solutions for agricultural businesses.',
   longDescription:
-    'Our platform aims to help agricultural businesses connect harvest availability with customer demand, improve sales operations, identify commercial opportunities, and support better decisions through practical artificial intelligence.',
-  accessibility:
-    'We prioritise accessible technology that can operate without expensive IoT infrastructure or extensive historical datasets.',
+    'We aim to improve how farms manage their sales, customer enquiries, upcoming harvests, marketing outreach and business operations — helping them make informed decisions, strengthen market connections, improve sales opportunities and reduce avoidable agricultural waste.',
+  focus:
+    'Our initial focus is on farm operations and sales intelligence, rather than IoT, robotics or physical agricultural equipment.',
   mission:
     'Empower farms with accessible technology that improves sales efficiency, strengthens market connections, and supports sustainable agricultural operations.',
   vision:
@@ -95,6 +109,16 @@ export const company = {
 export function configuredSocialUrls(): string[] {
   const { linkedin, instagram, github } = company.social;
   return [linkedin, instagram, github].filter((url): url is string => Boolean(url));
+}
+
+export function mailtoHref(subject?: string, body?: string): string | null {
+  if (!company.contact.email) return null;
+  const params = new URLSearchParams();
+  if (subject) params.set('subject', subject);
+  if (body) params.set('body', body);
+  // URLSearchParams encodes spaces as "+", which some mail clients show literally.
+  const query = params.toString().replace(/\+/g, '%20');
+  return `mailto:${company.contact.email}${query ? `?${query}` : ''}`;
 }
 
 /** Public URL for the MEOD Farm prototype. */

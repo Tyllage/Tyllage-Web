@@ -1,63 +1,65 @@
-import {
-  BrainCircuit,
-  Cloud,
-  Database,
-  Globe,
-  LineChart,
-  Lock,
-  MessageCircle,
-  Server,
-  ShieldCheck,
-  Sparkles,
-  Workflow,
-  Layout as LayoutIcon,
-} from 'lucide-react';
+import { BrainCircuit, Cloud, Cpu, Lock, ShieldCheck, Sparkles, Workflow } from 'lucide-react';
 import { Hero } from '../components/Hero';
 import { Section, SectionHeading } from '../components/Section';
 import { CtaBand } from '../components/CtaBand';
+import { media } from '../data/media';
 import { pages } from '../data/seo';
 import { usePageMeta } from '../hooks/usePageMeta';
 
 const pillars = [
   {
-    icon: BrainCircuit,
-    title: 'Artificial Intelligence',
-    text: 'Practical AI for drafting outreach, organising enquiries and surfacing commercial opportunities — designed to be useful even when historical data is limited.',
+    id: 'intelligent-technology',
+    icon: Cpu,
+    title: 'Intelligent Technology',
+    what: 'Software that brings harvest, customer and sales information together in one place.',
+    benefit: 'Farm teams spend less time searching across chats and spreadsheets.',
   },
   {
+    id: 'practical-ai',
+    icon: BrainCircuit,
+    title: 'Practical AI',
+    what: 'AI that drafts messages, organises enquiries and points out possible sales opportunities.',
+    benefit: 'Useful from day one — even without years of historical data.',
+  },
+  {
+    id: 'cloud-computing',
     icon: Cloud,
     title: 'Cloud Computing',
-    text: 'Cloud-hosted services so farms can use the platform from a phone or laptop without installing or maintaining local infrastructure.',
+    what: 'Tools that run in a web browser on a phone, tablet or laptop.',
+    benefit: 'Nothing to install or maintain on the farm.',
   },
   {
-    icon: LineChart,
-    title: 'Commercial Intelligence',
-    text: 'Bringing harvest availability, demand signals and buyer activity together to inform sales and pricing decisions.',
-  },
-  {
+    id: 'workflow-automation',
     icon: Workflow,
     title: 'Workflow Automation',
-    text: 'Reducing repetitive manual steps in enquiries, pre-orders and follow-ups, while keeping people in the loop.',
+    what: 'Repetitive steps — reminders, follow-ups, enquiry tracking — handled by structured workflows.',
+    benefit: 'More consistent customer service with less manual effort.',
   },
   {
+    id: 'responsible-ai',
     icon: ShieldCheck,
     title: 'Responsible AI',
-    text: 'Human approval before customer-facing actions, explainable suggestions and clear communication of uncertainty.',
+    what: 'Every customer-facing action needs human approval, and suggestions explain their reasoning.',
+    benefit: 'The farm stays in control of prices, production and its customer relationships.',
   },
   {
+    id: 'security-privacy',
     icon: Lock,
-    title: 'Data Security & Privacy',
-    text: 'Data minimisation, encryption in transit, access controls and handling of personal data in line with Singapore’s PDPA.',
+    title: 'Security and Privacy',
+    what: 'Collecting only what is needed, encrypting data in transit and limiting who can access it.',
+    benefit: 'Farm and customer information is handled with care, in line with Singapore’s PDPA.',
   },
 ];
 
 const stack = [
-  { icon: LayoutIcon, name: 'React + TypeScript', role: 'Web application interface' },
-  { icon: Server, name: 'Node.js + Express', role: 'Application API and business logic' },
-  { icon: Database, name: 'PostgreSQL', role: 'Relational data storage' },
-  { icon: Cloud, name: 'AWS', role: 'Cloud hosting and infrastructure' },
-  { icon: Sparkles, name: 'OpenAI API', role: 'Language-model capabilities' },
-  { icon: MessageCircle, name: 'WhatsApp Business Platform', role: 'Customer messaging channel' },
+  { name: 'React', role: 'User interface' },
+  { name: 'TypeScript', role: 'Typed application code' },
+  { name: 'Node.js', role: 'Server runtime' },
+  { name: 'Express', role: 'Application API' },
+  { name: 'PostgreSQL', role: 'Relational database' },
+  { name: 'AWS', role: 'Cloud infrastructure' },
+  { name: 'OpenAI API', role: 'Language-model features' },
+  { name: 'WhatsApp Business Platform', role: 'Customer messaging' },
 ];
 
 export default function Technology() {
@@ -67,123 +69,71 @@ export default function Technology() {
     <>
       <Hero
         eyebrow="Technology & innovation"
-        title="Practical technology, responsibly applied."
-        lead="We combine artificial intelligence, cloud computing and workflow automation to build tools that agricultural businesses can actually adopt."
+        title={
+          <>
+            Technology that <em className="serif-accent">works for farms.</em>
+          </>
+        }
+        lead="We use artificial intelligence, cloud software and workflow automation to make the business side of farming simpler — explained in plain language below."
+        media={media.technology}
       />
 
-      <Section tone="ivory" labelledBy="pillars-title">
-        <SectionHeading id="pillars-title" eyebrow="Focus areas" title="The foundations of our work." />
-        <ul className="card-grid card-grid--3" role="list">
-          {pillars.map(({ icon: Icon, title, text }, i) => (
-            <li key={title} className="feature-card feature-card--elevated reveal" style={{ ['--delay' as string]: `${(i % 3) * 70}ms` }}>
-              <span className="feature-card__icon">
+      <Section tone="white" labelledBy="pillars-title">
+        <SectionHeading
+          id="pillars-title"
+          eyebrow="What we use, and why it matters"
+          title="Six foundations of our work."
+        />
+        <ul className="pillars" role="list">
+          {pillars.map(({ id, icon: Icon, title, what, benefit }, i) => (
+            <li key={id} id={id} className="pillar reveal" style={{ ['--delay' as string]: `${(i % 3) * 70}ms` }}>
+              <span className="pillar__icon">
                 <Icon size={22} aria-hidden />
               </span>
-              <h3 className="feature-card__title">{title}</h3>
-              <p className="feature-card__text">{text}</p>
+              <h3 className="pillar__title">{title}</h3>
+              <p className="pillar__what">{what}</p>
+              <p className="pillar__benefit">
+                <Sparkles size={15} aria-hidden />
+                <span>
+                  <span className="sr-only">Benefit for farms: </span>
+                  {benefit}
+                </span>
+              </p>
             </li>
           ))}
         </ul>
       </Section>
 
-      <Section tone="white" labelledBy="stack-title">
-        <div className="split">
-          <SectionHeading
-            id="stack-title"
-            eyebrow="Planned farm-platform technologies"
-            title="The technology behind the platform."
-            intro="These are the technologies planned for the Tyllage farm platform. Choices may evolve as development progresses."
-          />
-        </div>
-        <ul className="stack-grid" role="list">
-          {stack.map(({ icon: Icon, name, role }, i) => (
-            <li key={name} className="stack-item reveal" style={{ ['--delay' as string]: `${(i % 3) * 60}ms` }}>
-              <span className="stack-item__icon">
-                <Icon size={20} aria-hidden />
-              </span>
-              <div>
+      <Section tone="beige" labelledBy="stack-title" className="section--tight">
+        <div className="stack">
+          <div className="stack__intro reveal">
+            <p className="eyebrow">For the technically curious</p>
+            <h2 id="stack-title" className="h3">
+              Our preferred technology stack
+            </h2>
+            <p className="muted">
+              The technologies we currently prefer for the Tyllage farm application. The application is at prototype
+              stage and is not yet running in production; these choices may evolve.
+            </p>
+          </div>
+          <ul className="stack__list reveal" role="list">
+            {stack.map(({ name, role }) => (
+              <li key={name}>
                 <strong>{name}</strong>
                 <span>{role}</span>
-              </div>
-              <span className="status-badge status-badge--mvp">Planned</span>
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <Section tone="mist" id="architecture" labelledBy="architecture-title">
-        <SectionHeading
-          id="architecture-title"
-          eyebrow="Architecture"
-          title="Two separate systems, by design."
-          intro="This public corporate website and the Tyllage farm software platform are built and operated independently. Keeping them separate limits risk and lets each evolve at its own pace."
-        />
-        <div className="arch-grid">
-          <article className="arch-card reveal">
-            <header className="arch-card__head">
-              <span className="arch-card__icon">
-                <Globe size={20} aria-hidden />
-              </span>
-              <div>
-                <h3>Corporate website</h3>
-                <p>tyllage.com — the site you are viewing</p>
-              </div>
-            </header>
-            <ul className="arch-list" role="list">
-              <li>
-                <strong>Frontend</strong>
-                <span>React, TypeScript and Vite, prerendered to static HTML</span>
               </li>
-              <li>
-                <strong>Hosting</strong>
-                <span>Amazon S3 with CloudFront CDN and HTTPS</span>
-              </li>
-              <li>
-                <strong>Delivery</strong>
-                <span>Automated builds and deployment with GitHub Actions</span>
-              </li>
-              <li>
-                <strong>Data</strong>
-                <span>No application database. No access to farm platform data.</span>
-              </li>
-            </ul>
-          </article>
-          <article className="arch-card arch-card--platform reveal" style={{ ['--delay' as string]: '90ms' }}>
-            <header className="arch-card__head">
-              <span className="arch-card__icon">
-                <Server size={20} aria-hidden />
-              </span>
-              <div>
-                <h3>Farm software platform</h3>
-                <p>Planned architecture — in development</p>
-              </div>
-            </header>
-            <ul className="arch-list" role="list">
-              <li>
-                <strong>Frontend</strong>
-                <span>React and TypeScript web application</span>
-              </li>
-              <li>
-                <strong>Backend</strong>
-                <span>Node.js and Express API with PostgreSQL</span>
-              </li>
-              <li>
-                <strong>Cloud</strong>
-                <span>AWS infrastructure</span>
-              </li>
-              <li>
-                <strong>Integrations</strong>
-                <span>OpenAI API and WhatsApp Business Platform</span>
-              </li>
-            </ul>
-          </article>
+            ))}
+          </ul>
         </div>
+        <p className="stack__note reveal" id="architecture">
+          This public website is a separate, static site. It has no database and no access to farm application data.
+        </p>
       </Section>
 
       <CtaBand
         id="tech-cta-title"
         title="Interested in collaborating on technology?"
-        text="We welcome conversations with technology partners, researchers and educational institutions."
+        text="We welcome conversations with technology partners, industry collaborators and educational institutions."
       />
     </>
   );

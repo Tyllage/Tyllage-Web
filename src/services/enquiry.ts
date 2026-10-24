@@ -11,17 +11,19 @@
  *   - respond 2xx only once the enquiry has actually been accepted
  *   - re-validate every field server-side and apply rate limiting / spam checks
  *
- * Until the endpoint is configured, `submitEnquiry` returns `unavailable` and
- * the form tells visitors plainly that nothing has been sent.
+ * Until the endpoint is configured, the contact form prepares a pre-filled
+ * email (mailto:) in the visitor's own email app instead, and says plainly
+ * that nothing is sent until they press Send there.
  */
 
 export const organisationTypes = [
-  'Farm',
+  'Farm owner',
   'Agricultural business',
-  'Wholesale buyer',
   'Technology partner',
   'School or educational institution',
-  'Investor or mentor',
+  'Industry collaborator',
+  'Mentor or investor',
+  'Wholesale buyer',
   'Other',
 ] as const;
 

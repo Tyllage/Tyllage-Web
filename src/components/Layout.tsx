@@ -21,6 +21,8 @@ function useRouteFocus(mainRef: RefObject<HTMLElement | null>) {
       firstRender.current = false;
       return;
     }
+    // Page transitions apply only to in-app navigation, never to the first paint.
+    document.documentElement.dataset.navigated = 'true';
     window.scrollTo(0, 0);
     mainRef.current?.focus({ preventScroll: true });
   }, [pathname, hash, mainRef]);
@@ -28,6 +30,7 @@ function useRouteFocus(mainRef: RefObject<HTMLElement | null>) {
 
 export function Layout() {
   const mainRef = useRef<HTMLElement>(null);
+  const { pathname } = useLocation();
   useRouteFocus(mainRef);
   useReveal();
 
@@ -38,7 +41,9 @@ export function Layout() {
       </a>
       <Navbar />
       <main id="main" ref={mainRef} tabIndex={-1}>
-        <Outlet />
+        <div key={pathname} className="page-transition">
+          <Outlet />
+        </div>
       </main>
       <Footer />
     </>

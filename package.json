@@ -16,7 +16,8 @@
     "prerender": "node scripts/prerender.mjs",
     "build": "tsc -b && npm run build:client && npm run build:ssr && npm run prerender",
     "preview": "vite preview",
-    "og-image": "node scripts/generate-og-image.mjs"
+    "og-image": "node scripts/generate-og-image.mjs",
+    "brand-assets": "node scripts/generate-brand-assets.mjs"
   },
   "dependencies": {
     "lucide-react": "0.460.0",

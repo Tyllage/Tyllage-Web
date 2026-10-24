@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { AlertCircle, ArrowUpRight, CheckCircle2, Info, Loader2, Send } from 'lucide-react';
-import { company } from '../data/company';
+import { AlertCircle, ArrowUpRight, CheckCircle2, Info, Loader2, Mail, Send } from 'lucide-react';
+import { company, mailtoHref } from '../data/company';
 import {
   isEnquiryServiceConfigured,
   organisationTypes,
@@ -28,6 +28,7 @@ type SubmitState =
   | { kind: 'submitting' }
   | { kind: 'sent' }
   | { kind: 'unavailable' }
+  | { kind: 'drafted'; href: string }
   | { kind: 'error'; message: string };
 
 const initialValues: FormValues = {
@@ -47,7 +48,8 @@ const LIMITS = {
   email: 254,
   subject: 150,
   messageMin: 20,
-  message: 3000,
+  // Kept modest so the email-draft link stays within mail-client URL limits.
+  message: 2000,
 };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -127,6 +129,8 @@ export function ContactForm() {
     (focusRequest.target === 'summary' ? summaryRef : statusRef).current?.focus();
   }, [focusRequest]);
 
+  // Without a backend, the form opens a pre-filled email in the visitor's own email app.
+  const draftMode = !isEnquiryServiceConfigured && Boolean(company.contact.email);
   const errorList = fieldOrder.filter((f) => errors[f]);
   const submitting = state.kind === 'submitting';
 
@@ -139,7 +143,7 @@ export function ContactForm() {
     if (name !== 'website' && touched[name]) {
       setErrors((prev) => ({ ...prev, [name]: validateField(name, next) }));
     }
-    if (state.kind === 'error' || state.kind === 'unavailable') setState({ kind: 'idle' });
+    if (state.kind !== 'idle' && state.kind !== 'submitting') setState({ kind: 'idle' });
   }
 
   function handleBlur(name: FieldName) {
@@ -159,6 +163,24 @@ export function ContactForm() {
       setState({ kind: 'idle' });
       setFocusRequest({ target: 'summary' });
       return;
+    }
+
+    if (draftMode) {
+      const body = [
+        `Name: ${values.fullName.trim()}`,
+        `Organisation: ${values.organisation.trim()}`,
+        `Organisation type: ${values.organisationType}`,
+        `Email: ${values.email.trim()}`,
+        '',
+        values.message.trim(),
+      ].join('\n');
+      const href = mailtoHref(values.subject.trim(), body);
+      if (href) {
+        window.location.href = href;
+        setState({ kind: 'drafted', href });
+        setFocusRequest({ target: 'status' });
+        return;
+      }
     }
 
     setState({ kind: 'submitting' });
@@ -217,8 +239,19 @@ export function ContactForm() {
   return (
     <form className="contact-form" noValidate onSubmit={handleSubmit}
       aria-describedby={isEnquiryServiceConfigured ? undefined : id('form-note')}
+      aria-label={draftMode ? 'Partnership enquiry (prepares an email)' : 'Partnership enquiry'}
     >
-      {!isEnquiryServiceConfigured && (
+      {draftMode && (
+        <div className="form-notice" id={id('form-note')}>
+          <Mail size={18} aria-hidden />
+          <p>
+            <strong>This form prepares an email.</strong> When you continue, your email app opens with your enquiry
+            addressed to <a href={`mailto:${company.contact.email}`}>{company.contact.email}</a>. Nothing is sent
+            until you press Send in your email app.
+          </p>
+        </div>
+      )}
+      {!isEnquiryServiceConfigured && !draftMode && (
         <div className="form-notice" id={id('form-note')}>
           <Info size={18} aria-hidden />
           <p>
@@ -422,6 +455,10 @@ export function ContactForm() {
             <>
               <Loader2 size={18} className="spin" aria-hidden /> Sending…
             </>
+          ) : draftMode ? (
+            <>
+              Open email draft <Mail size={17} aria-hidden />
+            </>
           ) : (
             <>
               Send enquiry <Send size={17} aria-hidden />
@@ -431,6 +468,21 @@ export function ContactForm() {
       </div>
 
       <div ref={statusRef} tabIndex={-1} aria-live="polite" className="form-status-region">
+        {state.kind === 'drafted' && (
+          <div className="form-status form-status--info" role="status">
+            <Mail size={22} aria-hidden />
+            <div>
+              <h3>Your email draft is ready — it has not been sent yet.</h3>
+              <p>
+                Check the draft in your email app and press Send to reach us. If your email app did not open, email us
+                directly at <a href={`mailto:${company.contact.email}`}>{company.contact.email}</a>.
+              </p>
+              <a className="btn btn--outline btn--sm" href={state.href}>
+                Open the draft again
+              </a>
+            </div>
+          </div>
+        )}
         {state.kind === 'unavailable' && (
           <div className="form-status form-status--warning" role="status">
             <Info size={22} aria-hidden />

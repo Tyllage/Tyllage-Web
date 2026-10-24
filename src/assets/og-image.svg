@@ -1,33 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <radialGradient id="glow" cx="0.9" cy="0" r="0.8">
-      <stop offset="0" stop-color="#74B49B" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#74B49B" stop-opacity="0"/>
+    <radialGradient id="glow" cx="0.95" cy="0.05" r="0.75">
+      <stop offset="0" stop-color="#A9C4AE" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#A9C4AE" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="glow2" cx="0" cy="1" r="0.7">
       <stop offset="0" stop-color="#2D6A4F" stop-opacity="0.9"/>
       <stop offset="1" stop-color="#2D6A4F" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="1200" height="630" fill="#173D32"/>
+  <rect width="1200" height="630" fill="#102D24"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
   <rect width="1200" height="630" fill="url(#glow2)"/>
-  <g fill="none" stroke="#74B49B" stroke-width="1.2">
-    <path d="M-40 420 C 300 260, 700 480, 1240 300" opacity="0.10"/>
-    <path d="M-40 462 C 300 302, 700 522, 1240 342" opacity="0.14"/>
-    <path d="M-40 504 C 300 344, 700 564, 1240 384" opacity="0.18"/>
-    <path d="M-40 546 C 300 386, 700 606, 1240 426" opacity="0.22"/>
-    <path d="M-40 588 C 300 428, 700 648, 1240 468" opacity="0.18"/>
-    <path d="M-40 630 C 300 470, 700 690, 1240 510" opacity="0.14"/>
+  <g fill="none" stroke="#A9C4AE" stroke-width="1.2">
+    <path d="M-40 430 C 300 270, 700 490, 1240 310" opacity="0.10"/>
+    <path d="M-40 472 C 300 312, 700 532, 1240 352" opacity="0.14"/>
+    <path d="M-40 514 C 300 354, 700 574, 1240 394" opacity="0.18"/>
+    <path d="M-40 556 C 300 396, 700 616, 1240 436" opacity="0.22"/>
+    <path d="M-40 598 C 300 438, 700 658, 1240 478" opacity="0.18"/>
   </g>
-  <g transform="translate(96 96) scale(2.6)">
-    <rect width="32" height="32" rx="9" fill="#2D6A4F"/>
-    <path d="M7.5 11.5Q16 6.8 24.5 11.5" fill="none" stroke="#74B49B" stroke-width="2.6" stroke-linecap="round"/>
-    <path d="M16 10.2V24.5" fill="none" stroke="#F7F8F3" stroke-width="2.6" stroke-linecap="round"/>
-    <path d="M16 19.2c0-3.4 2.6-5.9 6.2-5.9 0 3.4-2.6 5.9-6.2 5.9z" fill="#74B49B"/>
-  </g>
-  <text x="200" y="158" font-family="Manrope, Inter, Segoe UI, Arial, sans-serif" font-size="46" font-weight="800" fill="#F7F8F3" letter-spacing="-1.5">Tyllage</text>
-  <text x="96" y="330" font-family="Manrope, Inter, Segoe UI, Arial, sans-serif" font-size="76" font-weight="800" fill="#F7F8F3" letter-spacing="-2.5">Smarter Farms.</text>
-  <text x="96" y="418" font-family="Manrope, Inter, Segoe UI, Arial, sans-serif" font-size="76" font-weight="800" fill="#74B49B" letter-spacing="-2.5">Stronger Demand.</text>
-  <text x="96" y="520" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="500" fill="#F7F8F3" fill-opacity="0.78">AI-assisted farm sales &amp; operational intelligence · Singapore</text>
+  <!-- Ivory disc; the official logo is composited on top by scripts/generate-og-image.mjs -->
+  <circle cx="141" cy="141" r="45" fill="#F7F8F3"/>
+  <text x="206" y="157" font-family="Manrope, Inter, Segoe UI, Arial, sans-serif" font-size="46" font-weight="800" fill="#F7F8F3" letter-spacing="-1.5">Tyllage</text>
+  <text x="96" y="330" font-family="Manrope, Inter, Segoe UI, Arial, sans-serif" font-size="80" font-weight="800" fill="#F7F8F3" letter-spacing="-2.5">Growing Smarter.</text>
+  <text x="96" y="420" font-family="Georgia, 'Times New Roman', serif" font-size="80" font-style="italic" fill="#A9C4AE" letter-spacing="-1.5">Selling Better.</text>
+  <text x="96" y="520" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="500" fill="#F7F8F3" fill-opacity="0.8">Practical AI for agricultural businesses · Singapore</text>
 </svg>

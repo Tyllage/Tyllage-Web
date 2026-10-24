@@ -3,30 +3,23 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import { company } from '../data/company';
 import { navItems } from '../data/navigation';
-import { LinkedInIcon, TyllageMark } from './Icons';
-
-
-export function Logo({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
-  return (
-    <span className={`logo logo--${tone}`}>
-      <TyllageMark size={34} />
-      <span className="logo__word">{company.brandName}</span>
-    </span>
-  );
-}
+import { Logo } from './Logo';
+import { SocialLinks } from './SocialLinks';
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
   const toggleRef = useRef<HTMLButtonElement>(null);
+  // Pages with a full-bleed photographic hero start with a transparent header.
+  const overHero = pathname === '/' && !scrolled && !open;
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -54,10 +47,12 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className={`site-header${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}>
+    <header
+      className={`site-header${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}${overHero ? ' is-over-hero' : ''}`}
+    >
       <div className="container site-header__inner">
         <Link to="/" className="site-header__brand" aria-label={`${company.brandName} — home`}>
-          <Logo />
+          <Logo tone={overHero ? 'light' : 'dark'} />
         </Link>
 
         <nav className="site-nav" aria-label="Primary">
@@ -69,17 +64,8 @@ export function Navbar() {
                 </NavLink>
               </li>
             ))}
-            <li className="site-nav__mobile-only">
-              <a
-                className="site-nav__link site-nav__social"
-                href={company.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <LinkedInIcon size={18} />
-                Tyllage on LinkedIn
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
+            <li className="site-nav__mobile-only site-nav__mobile-social">
+              <SocialLinks variant="list" include={['linkedin', 'instagram']} />
             </li>
             <li className="site-nav__mobile-only">
               <Link to="/contact" className="btn btn--primary btn--block">
@@ -90,17 +76,12 @@ export function Navbar() {
         </nav>
 
         <div className="site-header__actions">
-          <a
-            className="icon-link"
-            href={company.social.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Tyllage on LinkedIn (opens in a new tab)"
-            title="Tyllage on LinkedIn"
-          >
-            <LinkedInIcon size={18} />
-          </a>
-          <Link to="/contact" className="btn btn--primary btn--sm site-header__cta">
+          <SocialLinks
+            className="site-header__social"
+            tone={overHero ? 'hero' : 'light'}
+            include={['linkedin', 'instagram']}
+          />
+          <Link to="/contact" className={`btn btn--sm site-header__cta ${overHero ? 'btn--sage' : 'btn--primary'}`}>
             Partner With Us
           </Link>
           <button

@@ -13,39 +13,39 @@ const suffix = ' | Tyllage';
 export const pages = {
   home: {
     path: '/',
-    title: 'Tyllage — AI-Assisted Farm Sales & Operational Intelligence',
+    title: 'Tyllage — Growing Smarter. Selling Better. | Singapore AgriTech',
     description:
-      'Tyllage is a Singapore AgriTech software venture developing AI-assisted sales and operational intelligence that connects harvest availability with customer demand.',
+      'Tyllage is a Singapore-based, female-founded AgriTech startup developing practical AI that helps farms manage sales, enquiries, upcoming harvests and marketing outreach.',
   },
   about: {
     path: '/about',
     title: 'About Us' + suffix,
     description:
-      'Meet Tyllage LLP, a Singapore-registered AgriTech software venture. Our story, mission, vision, values and founding partners.',
+      'From classrooms to cultivating change: the story of Tyllage LLP, a Singapore AgriTech startup founded by Felicia Tan and Shernell Ho. Our mission, vision and values.',
   },
   platform: {
     path: '/platform',
     title: 'Our Platform' + suffix,
     description:
-      'Explore the emerging Tyllage farm intelligence platform: Demand Radar, Harvest Batch Management, AI Campaign Advisor, Harvest Pre-Orders and more.',
+      'The practical tools Tyllage is developing for farm businesses: Demand Radar, Harvest Batch Management, AI Campaign Advisor, Harvest Pre-Orders and more — with farm staff always in control.',
   },
   projects: {
     path: '/projects',
     title: 'Projects & Pilots' + suffix,
     description:
-      'Tyllage project workstreams: the MEOD Farm prototype for AI-assisted farm operations, and ComCrop, a proposed demand-coordination workstream.',
+      'Tyllage — MEOD Farm: an evolving prototype exploring AI-assisted farm operations, customer engagement, harvest pre-orders and learning-journey support.',
   },
   technology: {
     path: '/technology',
     title: 'Technology & Innovation' + suffix,
     description:
-      'How Tyllage approaches artificial intelligence, cloud computing, workflow automation, responsible AI, and data security and privacy.',
+      'How Tyllage uses practical AI, cloud software and workflow automation to help farms — explained in plain language, with responsible AI and privacy at the core.',
   },
   contact: {
     path: '/contact',
     title: 'Partner With Us' + suffix,
     description:
-      'Partner with Tyllage. We welcome enquiries from farms, agricultural businesses, wholesale buyers, technology partners, schools, investors and mentors.',
+      'Partner with Tyllage. Contact us at tyllage.co@gmail.com — we welcome farm owners, agricultural businesses, technology partners, schools, industry collaborators, mentors and investors.',
   },
   privacy: {
     path: '/privacy',
@@ -78,7 +78,7 @@ export function organizationJsonLd() {
     name: company.brandName,
     legalName: company.legalName,
     url: `${company.siteUrl}/`,
-    logo: `${company.siteUrl}/favicon.svg`,
+    logo: `${company.siteUrl}/logo/tyllage-logo-512.png`,
     description: `${company.description} ${company.longDescription}`,
     slogan: company.tagline,
     address: {
@@ -86,6 +86,9 @@ export function organizationJsonLd() {
       addressCountry: company.countryCode,
       ...(company.contact.address ? { streetAddress: company.contact.address } : {}),
     },
+    ...(company.contact.uen
+      ? { identifier: { '@type': 'PropertyValue', propertyID: 'UEN', value: company.contact.uen } }
+      : {}),
     ...(company.contact.email ? { email: company.contact.email } : {}),
     ...(company.contact.phone ? { telephone: company.contact.phone } : {}),
     founder: company.founders.map((f) => ({ '@type': 'Person', name: f.name })),
