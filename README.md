@@ -217,7 +217,15 @@ dist/assets/*              → fingerprinted JS/CSS (safe to cache for a year)
 
 ### GitHub Actions (OIDC, no stored AWS keys)
 
-1. In IAM, add GitHub's OIDC identity provider (`token.actions.githubusercontent.com`).
+> **Organisation policy:** the Tyllage GitHub organisation allows only actions created by GitHub or
+> owned by Tyllage, and every action must be pinned to a full-length commit SHA. A workflow that
+> breaks either rule ends in **Startup failure** before any job runs. When updating
+> `.github/workflows/deploy.yml`, keep each `uses:` pinned (for example
+> `actions/checkout@<40-character SHA> # v4.4.0`) and don't add third-party actions. AWS sign-in
+> uses the AWS CLI that's preinstalled on GitHub's runners instead of `aws-actions/configure-aws-credentials`.
+
+1. In IAM, add GitHub's OIDC identity provider (`token.actions.githubusercontent.com`) with the
+   audience `sts.amazonaws.com`.
 2. Create a role that trusts it, restricted to this repository's `main` branch, for example:
    `"token.actions.githubusercontent.com:sub": "repo:<owner>/<repo>:ref:refs/heads/main"`
    (or `…:environment:production`).
@@ -235,6 +243,8 @@ dist/assets/*              → fingerprinted JS/CSS (safe to cache for a year)
 - On **pull requests:** installs, lints, typechecks and builds.
 - On **push to `main`:** does the same, uploads `assets/` with `Cache-Control: immutable` (1 year)
   and everything else with `max-age=0, must-revalidate`, then invalidates CloudFront.
+- **Until the `S3_BUCKET` variable is set,** the deploy job is skipped, so pushes show a passing build
+  instead of a failed deployment.
 
 ### Manual deploy (if needed)
 

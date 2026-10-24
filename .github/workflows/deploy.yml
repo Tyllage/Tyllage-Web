@@ -1,5 +1,10 @@
 name: Build and deploy
 
+# The Tyllage organisation only allows actions created by GitHub or owned by
+# Tyllage, pinned to a full-length commit SHA. Keep every `uses:` pinned (the
+# comment shows the release), and avoid third-party actions — AWS sign-in
+# below uses the AWS CLI that is preinstalled on GitHub's runners instead.
+
 on:
   pull_request:
     branches: [main]
@@ -19,9 +24,9 @@ jobs:
     name: Lint, typecheck and build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
           cache: npm
@@ -35,7 +40,7 @@ jobs:
           # Optional. Defaults to https://tyllage.org.
           VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: site
           path: dist
@@ -44,22 +49,47 @@ jobs:
   deploy:
     name: Deploy to S3 + CloudFront
     needs: build
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    # Skipped (not failed) until the AWS repository variables are configured.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.S3_BUCKET != ''
     runs-on: ubuntu-latest
     environment: production
     permissions:
       contents: read
       id-token: write # GitHub OIDC → AWS IAM role; no long-lived AWS keys.
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: site
           path: dist
 
-      - uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
-          aws-region: ${{ vars.AWS_REGION }}
+      # Exchanges GitHub's OIDC token for short-lived AWS credentials.
+      - name: Sign in to AWS
+        env:
+          ROLE_ARN: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+        run: |
+          set -euo pipefail
+          token=$(curl -sSf -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | jq -r '.value')
+          echo "::add-mask::$token"
+          creds=$(aws sts assume-role-with-web-identity \
+            --role-arn "$ROLE_ARN" \
+            --role-session-name "github-${GITHUB_RUN_ID}" \
+            --web-identity-token "$token" \
+            --duration-seconds 3600 \
+            --query Credentials --output json)
+          key_id=$(jq -r '.AccessKeyId' <<<"$creds")
+          secret=$(jq -r '.SecretAccessKey' <<<"$creds")
+          session=$(jq -r '.SessionToken' <<<"$creds")
+          echo "::add-mask::$key_id"
+          echo "::add-mask::$secret"
+          echo "::add-mask::$session"
+          {
+            echo "AWS_ACCESS_KEY_ID=$key_id"
+            echo "AWS_SECRET_ACCESS_KEY=$secret"
+            echo "AWS_SESSION_TOKEN=$session"
+          } >> "$GITHUB_ENV"
 
       # Fingerprinted assets never change, so they can be cached for a year.
       - name: Upload hashed assets
