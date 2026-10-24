@@ -2788,6 +2788,33 @@ main:focus {
   color: var(--botanical);
 }
 
+/*
+ * Line up the title, description, divider and benefit of every card in a
+ * row, however long each card's text is. Browsers without subgrid keep the
+ * flex layout above.
+ */
+@supports (grid-template-rows: subgrid) {
+  .pillar,
+  .capability-card {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    align-content: start;
+  }
+
+  .pillar__what,
+  .capability-card__summary {
+    margin-bottom: 20px;
+  }
+
+  .pillar__benefit,
+  .check-list {
+    align-self: start;
+    margin-top: 0 !important;
+  }
+}
+
 @media (max-width: 1024px) {
   .pillars {
     grid-template-columns: repeat(2, minmax(0, 1fr));
