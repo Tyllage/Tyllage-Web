@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="0.9" cy="0" r="0.8">
+      <stop offset="0" stop-color="#74B49B" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#74B49B" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="1" r="0.7">
+      <stop offset="0" stop-color="#2D6A4F" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#2D6A4F" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#173D32"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+  <g fill="none" stroke="#74B49B" stroke-width="1.2">
+    <path d="M-40 420 C 300 260, 700 480, 1240 300" opacity="0.10"/>
+    <path d="M-40 462 C 300 302, 700 522, 1240 342" opacity="0.14"/>
+    <path d="M-40 504 C 300 344, 700 564, 1240 384" opacity="0.18"/>
+    <path d="M-40 546 C 300 386, 700 606, 1240 426" opacity="0.22"/>
+    <path d="M-40 588 C 300 428, 700 648, 1240 468" opacity="0.18"/>
+    <path d="M-40 630 C 300 470, 700 690, 1240 510" opacity="0.14"/>
+  </g>
+  <g transform="translate(96 96) scale(2.6)">
+    <rect width="32" height="32" rx="9" fill="#2D6A4F"/>
+    <path d="M7.5 11.5Q16 6.8 24.5 11.5" fill="none" stroke="#74B49B" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M16 10.2V24.5" fill="none" stroke="#F7F8F3" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M16 19.2c0-3.4 2.6-5.9 6.2-5.9 0 3.4-2.6 5.9-6.2 5.9z" fill="#74B49B"/>
+  </g>
+  <text x="200" y="158" font-family="Manrope, Inter, Segoe UI, Arial, sans-serif" font-size="46" font-weight="800" fill="#F7F8F3" letter-spacing="-1.5">Tyllage</text>
+  <text x="96" y="330" font-family="Manrope, Inter, Segoe UI, Arial, sans-serif" font-size="76" font-weight="800" fill="#F7F8F3" letter-spacing="-2.5">Smarter Farms.</text>
+  <text x="96" y="418" font-family="Manrope, Inter, Segoe UI, Arial, sans-serif" font-size="76" font-weight="800" fill="#74B49B" letter-spacing="-2.5">Stronger Demand.</text>
+  <text x="96" y="520" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="28" font-weight="500" fill="#F7F8F3" fill-opacity="0.78">AI-assisted farm sales &amp; operational intelligence · Singapore</text>
+</svg>

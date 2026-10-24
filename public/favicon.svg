@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>Tyllage</title>
+  <rect width="32" height="32" rx="9" fill="#173D32"/>
+  <path d="M7.5 11.5Q16 6.8 24.5 11.5" fill="none" stroke="#74B49B" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M16 10.2V24.5" fill="none" stroke="#F7F8F3" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M16 19.2c0-3.4 2.6-5.9 6.2-5.9 0 3.4-2.6 5.9-6.2 5.9z" fill="#74B49B"/>
+</svg>
