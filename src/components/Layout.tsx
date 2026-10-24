@@ -2,6 +2,7 @@ import { useEffect, useRef, type RefObject } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { ScrollToTop } from './ScrollToTop';
 import { useReveal } from '../hooks/useReveal';
 
 /** Resets scroll and focus on navigation, and honours in-page #hash links. */
@@ -46,6 +47,7 @@ export function Layout() {
         </div>
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 }
