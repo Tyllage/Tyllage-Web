@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "Corporate website for Tyllage LLP — From Harvest to Demand.",
+  "license": "UNLICENSED",
   "type": "module",
   "engines": {
     "node": ">=20"

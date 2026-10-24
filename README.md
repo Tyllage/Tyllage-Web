@@ -3,20 +3,49 @@
 The public corporate website for **Tyllage LLP** (UEN T26LL1129K), a Singapore-based, female-founded
 AgriTech software startup. *From Harvest to Demand.*
 
-This site describes the company, its farm-intelligence platform, its project workstreams and how to
-partner with Tyllage. It is **not** an e-commerce storefront, and it is completely separate from the
-Tyllage farm-operations software.
+The site introduces the company, the farm sales and operations platform it is developing, its MEOD Farm
+prototype, and how to partner with Tyllage. It is **not** an online shop, and it is completely separate
+from the Tyllage farm application.
 
-- **Stack:** React 18, TypeScript, Vite, React Router, Lucide React, plain CSS
-- **Rendering:** every route is prerendered to static HTML at build time, then hydrated
-- **Hosting:** Amazon S3 + CloudFront (HTTPS, custom domain), deployed by GitHub Actions
-- **Backend:** none. The contact form prepares an email for the visitor to send, and can be connected to an API later (see below).
+- **Stack:** React 18, TypeScript, Vite, React Router, Lucide React and plain CSS
+- **Rendering:** every page is prerendered to static HTML at build time, then hydrated in the browser
+- **Hosting:** designed for Amazon S3 + CloudFront (HTTPS, custom domain), deployed by GitHub Actions
+- **Backend:** none. The contact form prepares an email for the visitor to send, and can be connected
+  to an API later
+
+## Contents
+
+- [Project status](#project-status)
+- [Quick start](#quick-start)
+- [Pages and features](#pages-and-features)
+- [Editing content](#editing-content)
+- [Domain](#domain)
+- [Contact form and enquiry backend](#contact-form-and-enquiry-backend)
+- [Project structure](#project-structure)
+- [Styling conventions](#styling-conventions)
+- [SEO, accessibility and responsiveness](#seo-accessibility-and-responsiveness)
+- [Deployment: AWS S3 + CloudFront](#deployment-aws-s3--cloudfront)
+- [Architecture note](#architecture-note)
+- [License](#license)
+
+---
+
+## Project status
+
+| Area | Status |
+| --- | --- |
+| Website | Complete and building cleanly; lint and typecheck pass. |
+| Domain | `tyllage.org` is **planned**, not yet live. It is used only in metadata, never as a visible link. |
+| Hosting | AWS S3 + CloudFront is **not yet set up**. Until it is, CI builds the site and skips deployment. |
+| Contact form | Works as an email-draft flow. No backend yet. |
+| Photography | Illustrated scenes are used until approved photos are available. |
+| Founder photos and bios | Not yet added; cards show initials. |
 
 ---
 
 ## Quick start
 
-Requires Node.js 20 or newer.
+Requires **Node.js 20 or newer** (CI uses Node 22).
 
 ```bash
 npm install
@@ -32,6 +61,28 @@ npm run dev          # http://localhost:5173
 | `npm run preview` | Serve `dist/` locally with the same clean-URL rules as CloudFront. |
 | `npm run og-image` | Re-render `public/images/og-image.png` from `src/assets/og-image.svg` and the official logo. |
 | `npm run brand-assets` | Regenerate the web-sized logo and favicon files from `public/logo/2.png`. |
+
+Before pushing, run `npm run lint` and `npm run build`. CI runs the same checks on every pull request
+and every push to `main`.
+
+---
+
+## Pages and features
+
+| Route | Page |
+| --- | --- |
+| `/` | Home: hero, our purpose, what we do, how Tyllage works, meet Tyllage, featured workstream, follow our journey |
+| `/about` | Founders' story, founders, mission and vision, values, why agriculture, approach, responsible AI, our journey |
+| `/platform` | Core development areas with stage labels, AI that supports farm staff, future concepts |
+| `/projects` | Tyllage — MEOD Farm: problem, proposed solution, prototype capabilities and preview |
+| `/technology` | Six plain-language technology foundations and the preferred tech stack |
+| `/contact` | Partnership audiences, enquiry form, email, LinkedIn, Instagram and registered business details |
+| `/privacy`, `/terms` | Privacy Policy and Terms of Use |
+| Any other URL | 404 page (`noindex`) |
+
+Site-wide: responsive navigation with a mobile menu, a back-to-top button that appears after scrolling,
+scroll-reveal animations, page transitions and hover effects, all of which respect reduced-motion
+settings.
 
 ---
 
@@ -75,10 +126,10 @@ credibility with farms, partners and innovation audiences depends on it.
 
 ### Logo
 
-The official logo is `public/logo/2.png` (a symbol without a wordmark, so "Tyllage" is set beside it).
-The site uses small derivatives for speed (`tyllage-logo-96.webp`, favicons, `apple-touch-icon.png`)
-and keeps `/logo/2.png` as the fallback. After replacing the logo, run `npm run brand-assets` and
-`npm run og-image`. On dark backgrounds the logo sits on a small ivory disc so it stays legible.
+The official logo is `public/logo/2.png`. It is a symbol without a wordmark, so "Tyllage" is set beside
+it. The site uses small derivatives for speed (`tyllage-logo-96.webp`, favicons, `apple-touch-icon.png`)
+and keeps `/logo/2.png` as the fallback. It is shown at 44 px directly on the background, on light and
+dark sections alike. After replacing the logo, run `npm run brand-assets` and `npm run og-image`.
 
 ### Photography and illustrations
 
@@ -86,7 +137,7 @@ Until approved photographs are available, every image slot shows an **illustrate
 (greenhouse, hydroponic rows, leafy greens, harvest crates or seedling trays), drawn in
 `src/components/Scene.tsx`. They are clearly artwork, so they never misrepresent a real farm. In
 production builds each scene is written to `dist/images/scenes/<name>.svg` and loaded as a cached
-image.
+image, which keeps the page HTML small.
 
 To use a photo, add an optimised file (WebP or AVIF, about 1600 px wide, under about 300 KB) to
 `public/images/` and set the slot in `src/data/media.ts`:
@@ -98,8 +149,9 @@ hero: {
 },
 ```
 
-Use only photos Tyllage owns or has licensed, and record the credit. Never present generic stock
-photos as MEOD Farm or another real facility. Use MEOD photographs and branding only with permission.
+Slots without a photo keep their illustration, so photos can be added one at a time. Use only photos
+Tyllage owns or has licensed, and record the credit. Never present generic stock photos as MEOD Farm or
+another real facility. Use MEOD photographs and branding only with permission.
 
 ---
 
@@ -141,7 +193,7 @@ To connect a backend (for example AWS API Gateway → Lambda → SES or DynamoDB
 ## Project structure
 
 ```
-├── .github/workflows/deploy.yml   CI (lint + build on PRs) and deploy (main → S3 + CloudFront)
+├── .github/workflows/deploy.yml   CI (lint + build) and deploy (main → S3 + CloudFront)
 ├── infra/cloudfront-url-rewrite.js CloudFront Function: clean URLs + www → apex redirect
 ├── public/                         Copied as-is: logo/ (official logo + favicons), images/
 ├── scripts/
@@ -150,7 +202,7 @@ To connect a backend (for example AWS API Gateway → Lambda → SES or DynamoDB
 │   └── generate-og-image.mjs       SVG + logo → PNG Open Graph image
 ├── src/
 │   ├── assets/                     Source artwork (og-image.svg)
-│   ├── components/                 Navbar, Footer, Hero, Logo, Media, Scene, SocialLinks, ContactForm, …
+│   ├── components/                 Navbar, Footer, Hero, Logo, Media, Scene, ScrollToTop, ContactForm, …
 │   ├── data/                       Company, platform, projects, media, SEO and navigation content
 │   ├── hooks/                      usePageMeta (head tags), useReveal (scroll animations)
 │   ├── pages/                      Home, About, Platform, Projects, Technology, Contact, Legal, NotFound
@@ -165,19 +217,39 @@ To connect a backend (for example AWS API Gateway → Lambda → SES or DynamoDB
 
 ---
 
-## SEO and accessibility
+## Styling conventions
+
+All custom CSS lives in `src/index.css`. No CSS framework is used.
+
+- **Design tokens** (colours, fonts, radii, shadows, spacing) are CSS variables in `:root` at the top
+  of the file. The palette is Forest Green `#173D32`, Deep Green `#102D24`, Botanical Green `#2D6A4F`,
+  Sage `#A9C4AE`, Soft Ivory `#F7F8F3`, Warm Beige `#EDEBDD`, White and Charcoal `#171C19`.
+- **Typography:** Manrope for headings, Inter for body text, and Fraunces italic for editorial accents
+  (`.serif-accent`).
+- **Class names** follow a block–element pattern, for example `.project-card__title`.
+- **Base resets** use `:where()`, so they carry no specificity and component classes always override them.
+- **Card grids** use CSS subgrid (Technology and Platform cards), so titles, descriptions and dividers
+  line up across each row. Browsers without subgrid fall back to a simple flex layout.
+
+---
+
+## SEO, accessibility and responsiveness
 
 - Each page has its own `<title>`, meta description, canonical URL, Open Graph and Twitter tags. These
   are **written into the static HTML** at build time, so crawlers and link previews see them without
   running JavaScript. `usePageMeta` keeps them in sync during client-side navigation.
 - An `Organization` JSON-LD block is included on every page. `sameAs` lists only the social profiles
   that are configured (LinkedIn and Instagram), and the UEN is included as an identifier.
-- `robots.txt` and `sitemap.xml` are generated at build time for the configured domain. The 404 page is marked `noindex`.
-- Semantic landmarks, a skip link, visible focus styles, keyboard-operable navigation (Escape closes
-  the mobile menu), labelled form controls with `aria-invalid` and `aria-describedby`, and
-  screen-reader notes on links that open in a new tab.
-- `prefers-reduced-motion` disables scroll reveals, page transitions, hero motion and hover zoom. Content
-  is fully visible without JavaScript.
+- `robots.txt` and `sitemap.xml` are generated at build time for the configured domain. The 404 page is
+  marked `noindex`.
+- Semantic landmarks, a skip link, visible keyboard focus, keyboard-operable navigation (Escape closes
+  the mobile menu), labelled form controls with `aria-invalid` and `aria-describedby`, and screen-reader
+  notes on links that open in a new tab.
+- `prefers-reduced-motion` disables scroll reveals, page transitions, hero motion and hover zoom, and
+  makes the back-to-top button jump instead of scrolling smoothly. Content is fully visible without
+  JavaScript.
+- Every page has been checked at 320, 375, 414, 768, 1024, 1280 and 1920 px wide, with no horizontal
+  scrolling or clipped text.
 
 ---
 
@@ -190,6 +262,7 @@ dist/index.html            → https://tyllage.org/
 dist/about/index.html      → https://tyllage.org/about
 dist/404.html              → served for unknown URLs
 dist/assets/*              → fingerprinted JS/CSS (safe to cache for a year)
+dist/images/scenes/*.svg   → illustrated scenes
 ```
 
 ### One-time AWS setup
@@ -226,16 +299,16 @@ dist/assets/*              → fingerprinted JS/CSS (safe to cache for a year)
 
 1. In IAM, add GitHub's OIDC identity provider (`token.actions.githubusercontent.com`) with the
    audience `sts.amazonaws.com`.
-2. Create a role that trusts it, restricted to this repository's `main` branch, for example:
-   `"token.actions.githubusercontent.com:sub": "repo:<owner>/<repo>:ref:refs/heads/main"`
-   (or `…:environment:production`).
+2. Create a role that trusts it, restricted to this repository's `main` branch:
+   `"token.actions.githubusercontent.com:sub": "repo:Tyllage/Tyllage-Web:ref:refs/heads/main"`
+   (or `repo:Tyllage/Tyllage-Web:environment:production`).
 3. Give the role least-privilege permissions: `s3:ListBucket` on the bucket,
    `s3:PutObject` and `s3:DeleteObject` on `bucket/*`, and `cloudfront:CreateInvalidation` on the
    distribution.
 4. In the GitHub repository settings, add:
    - **Secret:** `AWS_DEPLOY_ROLE_ARN`
    - **Variables:** `AWS_REGION`, `S3_BUCKET`, `CLOUDFRONT_DISTRIBUTION_ID`, and optionally
-     `VITE_CONTACT_ENDPOINT`
+     `VITE_CONTACT_ENDPOINT` and `VITE_SITE_URL`
    - An environment called `production` (optionally with required reviewers).
 
 `.github/workflows/deploy.yml` then:
@@ -260,10 +333,18 @@ aws cloudfront create-invalidation --distribution-id <id> --paths "/*"
 ## Architecture note
 
 This corporate website and the Tyllage farm platform are deliberately separate. The website has no
-database, no server-side code and no access to farm platform data. The farm platform (planned:
-React + TypeScript, Node.js + Express, PostgreSQL, AWS, OpenAI API, WhatsApp Business Platform) is
+database, no server-side code and no access to farm platform data. The farm platform (preferred stack:
+React, TypeScript, Node.js, Express, PostgreSQL, AWS, OpenAI API and WhatsApp Business Platform) is
 built, deployed and secured independently.
 
 ---
 
+## License
+
 Copyright © Tyllage LLP. All rights reserved.
+
+This repository is publicly visible, but it is **not open source**. No licence is granted to copy,
+modify or redistribute its code, content or design. The Tyllage name, logo, founders' story and other
+brand assets may not be reused without written permission from Tyllage LLP.
+
+For permission requests, contact [tyllage.co@gmail.com](mailto:tyllage.co@gmail.com).
