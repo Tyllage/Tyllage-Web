@@ -1,10 +1,11 @@
-import { ArrowUpRight, Compass, Eye, HeartHandshake, Lightbulb, Mail, ShieldCheck, Sprout, Target, UserRound } from 'lucide-react';
+import { ArrowUpRight, Compass, Eye, HeartHandshake, Lightbulb, Mail, ShieldCheck, Sprout, Target } from 'lucide-react';
 import { Hero } from '../components/Hero';
 import { Section, SectionHeading } from '../components/Section';
 import { CtaBand } from '../components/CtaBand';
 import { Media } from '../components/Media';
+import { TeamGallery, type Person } from '../components/TeamGallery';
 import { InstagramIcon, LinkedInIcon } from '../components/Icons';
-import { company, type Founder } from '../data/company';
+import { company } from '../data/company';
 import { media } from '../data/media';
 import { pages } from '../data/seo';
 import { usePageMeta } from '../hooks/usePageMeta';
@@ -47,46 +48,18 @@ const journeySteps = [
   { label: 'Ahead', title: 'First minimum viable product', text: 'Bringing the most useful capabilities together into an early product.', state: 'next' },
 ] as const;
 
-function initials(name: string) {
-  return name
-    .split(/\s+/)
-    .map((part) => part[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
-}
-
-function FounderCard({ founder }: { founder: Founder }) {
-  return (
-    <article className="founder-card reveal">
-      <div className="founder-card__photo">
-        {founder.photo ? (
-          <img src={founder.photo} alt={`Portrait of ${founder.name}`} width={320} height={400} loading="lazy" />
-        ) : (
-          <div className="founder-card__placeholder" aria-hidden>
-            <span className="founder-card__initials">{initials(founder.name)}</span>
-            <span className="founder-card__slot">
-              <UserRound size={14} /> Photo to be added
-            </span>
-          </div>
-        )}
-      </div>
-      <div className="founder-card__body">
-        <h3 className="founder-card__name">{founder.name}</h3>
-        <p className="founder-card__role">
-          {founder.role}, {company.legalName}
-        </p>
-        {founder.bio && <p className="founder-card__bio">{founder.bio}</p>}
-        {founder.linkedin && (
-          <a className="text-link" href={founder.linkedin} target="_blank" rel="noopener noreferrer">
-            <LinkedInIcon size={16} /> {founder.name} on LinkedIn
-            <span className="sr-only"> (opens in a new tab)</span>
-          </a>
-        )}
-      </div>
-    </article>
-  );
-}
+/** Founders first, then team members, in the order listed in company.ts. */
+const people: Person[] = [
+  ...company.founders.map((f) => ({
+    name: f.name,
+    role: f.role,
+    note: f.bio ?? undefined,
+    linkedin: f.linkedin ?? undefined,
+    photo: f.photo ?? undefined,
+    founder: true,
+  })),
+  ...company.team.map((m) => ({ name: m.name, role: m.role, note: m.focus, linkedin: m.linkedin, photo: m.photo })),
+];
 
 export default function About() {
   usePageMeta(pages.about);
@@ -129,13 +102,21 @@ export default function About() {
         </div>
       </Section>
 
-      {/* Founders */}
-      <Section tone="beige" labelledBy="founders-title">
-        <SectionHeading id="founders-title" eyebrow="Founders" title="The people behind Tyllage." align="center" />
-        <div className="founders-grid">
-          {company.founders.map((f) => (
-            <FounderCard key={f.name} founder={f} />
-          ))}
+      {/* Team: founders first, then the wider team, in one scrollable row */}
+      <Section tone="beige" labelledBy="team-title">
+        <div className="reveal">
+          <TeamGallery
+            people={people}
+            label="Tyllage team members"
+            heading={
+              <SectionHeading
+                id="team-title"
+                eyebrow="Our team"
+                title="The people behind Tyllage."
+                intro={`Founded by ${company.founders.map((f) => f.name).join(' and ')}, and growing with a team who share our focus.`}
+              />
+            }
+          />
         </div>
       </Section>
 

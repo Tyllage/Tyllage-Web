@@ -72,7 +72,7 @@ and every push to `main`.
 | Route | Page |
 | --- | --- |
 | `/` | Home: hero, our purpose, what we do, how Tyllage works, meet Tyllage, featured workstream, follow our journey |
-| `/about` | Founders' story, founders, mission and vision, values, why agriculture, approach, responsible AI, our journey |
+| `/about` | Founders' story, team gallery, mission and vision, values, why agriculture, approach, responsible AI, our journey |
 | `/platform` | Core development areas with stage labels, AI that supports farm staff, future concepts |
 | `/projects` | Tyllage — MEOD Farm: problem, proposed solution, prototype capabilities and preview |
 | `/technology` | Six plain-language technology foundations and the preferred tech stack |
@@ -92,7 +92,7 @@ All company facts live in data files, so most updates don't need component chang
 
 | File | Contains |
 | --- | --- |
-| `src/data/company.ts` | Legal and brand name, UEN, email, **social links**, mission, vision, founders, production domain. |
+| `src/data/company.ts` | Legal and brand name, UEN, email, **social links**, mission, vision, founders, team, production domain. |
 | `src/data/platform.ts` | Core and future capabilities, their **development stage**, and the homepage journey. |
 | `src/data/projects.ts` | Projects and whether each is `public`. Only MEOD Farm is currently public. |
 | `src/data/media.ts` | Image slots: which illustrated scene or approved photo each section shows. |
@@ -111,6 +111,27 @@ All company facts live in data files, so most updates don't need component chang
 - **Founder profiles:** each founder has `bio`, `linkedin` and `photo` fields in `company.ts`. Until a
   photo is added, the card shows initials and "Photo to be added". Use real, approved photos only, never
   AI-generated or stock portraits.
+
+### Team members
+
+The About page's **Our team** section is a horizontally scrollable gallery
+(`src/components/TeamGallery.tsx`). It shows the founders first, marked "Founder", then everyone in the
+`team` list in `src/data/company.ts`, in that order. When the cards don't all fit, previous/next buttons
+appear, the row snaps card by card, and the edge with more cards beyond it fades. Visitors can also
+swipe or use the arrow keys.
+
+Each member needs a `name`. `role` (leave it out until confirmed), `focus` (one line on what they work
+on), `linkedin` and `photo` are optional:
+
+```ts
+const team: TeamMember[] = [
+  { name: 'Valene He', role: 'Chief Information Security Officer (CISO)' },
+  { name: 'Jamie Ong', role: 'Marketing', focus: 'Runs our social channels.', photo: '/images/team/jamie-ong.jpg' },
+];
+```
+
+Add people only with their agreement, using the name and role they want shown. Members without a photo
+show their initials. Put photos in `public/images/team/`; they are cropped to a square.
 
 ### Hidden workstreams
 
@@ -202,7 +223,7 @@ To connect a backend (for example AWS API Gateway → Lambda → SES or DynamoDB
 │   └── generate-og-image.mjs       SVG + logo → PNG Open Graph image
 ├── src/
 │   ├── assets/                     Source artwork (og-image.svg)
-│   ├── components/                 Navbar, Footer, Hero, Logo, Media, Scene, ScrollToTop, ContactForm, …
+│   ├── components/                 Navbar, Footer, Hero, Logo, Media, Scene, TeamGallery, ScrollToTop, …
 │   ├── data/                       Company, platform, projects, media, SEO and navigation content
 │   ├── hooks/                      usePageMeta (head tags), useReveal (scroll animations)
 │   ├── pages/                      Home, About, Platform, Projects, Technology, Contact, Legal, NotFound

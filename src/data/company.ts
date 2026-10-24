@@ -21,6 +21,21 @@ export interface Founder {
   photo: string | null;
 }
 
+export interface TeamMember {
+  name: string;
+  /** Role as the member would like it shown, e.g. "Software Developer". Omit until confirmed. */
+  role?: string;
+  /** Optional one-line description of what they work on. */
+  focus?: string;
+  /** Personal LinkedIn profile URL, if the member wishes to share it. */
+  linkedin?: string;
+  /**
+   * Real, approved photo under /public, e.g. "/images/team/alex-lim.jpg".
+   * Never use AI-generated or stock portraits here.
+   */
+  photo?: string;
+}
+
 export interface CompanyContact {
   /** Public enquiry email. `null` hides it. */
   email: string | null;
@@ -80,6 +95,20 @@ const founders: Founder[] = [
   },
 ];
 
+/**
+ * Team members beyond the founding partners, shown under "Our team" on the
+ * About page. The section stays hidden while this list is empty. Add people
+ * only with their agreement, using the name and role they want shown:
+ *
+ *   { name: 'Alex Lim', role: 'Software Developer', focus: 'Builds the farm platform frontend.' },
+ */
+const team: TeamMember[] = [
+  { name: 'Valene He', role: 'Chief Information Security Officer (CISO)' },
+  { name: 'Chit Myat', role: 'Chief Business Officer (CBO)' },
+  // Role to be confirmed — add `role` once it is decided.
+  { name: 'Shermaine' },
+];
+
 export const company = {
   legalName: 'Tyllage LLP',
   brandName: 'Tyllage',
@@ -103,6 +132,7 @@ export const company = {
   social,
   contact,
   founders,
+  team,
 } as const;
 
 /** All configured social profile URLs — used for `sameAs` structured data. */
