@@ -2,6 +2,16 @@
 
 This repository is maintained privately by **Tyllage LLP**. It is not an open-source project.
 
+## Supported versions
+
+Only the latest commit on `main`, and the site deployed from it, receive security fixes.
+
+| Version | Supported |
+| --- | --- |
+| `main` (latest) and the live website | ✅ |
+| Older commits | ❌ |
+| Forks and copies of this repository | ❌ Not authorised. See [LICENSE](LICENSE). |
+
 ## Reporting a vulnerability
 
 If you believe you have found a security vulnerability in the Tyllage website or its infrastructure,
@@ -28,8 +38,17 @@ In scope: the website served at Tyllage domains and the code in this repository.
 Out of scope: denial-of-service testing, social engineering, physical attacks, spam, and findings in
 third-party services that Tyllage does not control.
 
+## Unauthorised copies and forks
+
+This repository is proprietary. Tyllage does not support, and has not authorised, any deployment, fork
+or copy of this code or website outside the Tyllage team. Vulnerabilities found only in someone else's
+copy are out of scope. If you find Tyllage code, content or branding being used or hosted without
+permission, please tell us through the same private reporting channel.
+
 ## Good-faith research
 
 Please act in good faith: only test against what is in scope, do not access, modify or delete data
-that is not yours, and stop and report as soon as you find an issue. Reporting a vulnerability does
-not grant any licence to the code or content of this repository; see [LICENSE](LICENSE).
+that is not yours, and stop and report as soon as you find an issue.
+
+This covers security testing only. Reporting a vulnerability does not grant any licence to copy, use,
+modify or redistribute the code or content of this repository; see [LICENSE](LICENSE).

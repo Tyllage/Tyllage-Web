@@ -3,6 +3,11 @@
 The public corporate website for **Tyllage LLP** (UEN T26LL1129K), a Singapore-based, female-founded
 AgriTech software startup. *From Harvest to Demand.*
 
+> **Proprietary software. © 2026 Tyllage LLP. All rights reserved.**
+> This repository is not open source. Being able to see it on GitHub does not give you permission to
+> copy, use, run, modify, deploy or redistribute any part of it, including its code, content, design
+> and brand assets. Outside contributions are not accepted. See [LICENSE](LICENSE).
+
 The site introduces the company, the farm sales and operations platform it is developing, its MEOD Farm
 prototype, and how to partner with Tyllage. It is **not** an online shop, and it is completely separate
 from the Tyllage farm application.
@@ -26,7 +31,7 @@ from the Tyllage farm application.
 - [SEO, accessibility and responsiveness](#seo-accessibility-and-responsiveness)
 - [Deployment: AWS S3 + CloudFront](#deployment-aws-s3--cloudfront)
 - [Architecture note](#architecture-note)
-- [License](#license)
+- [License and ownership](#license-and-ownership)
 
 ---
 
@@ -360,19 +365,25 @@ built, deployed and secured independently.
 
 ---
 
-## License
+## License and ownership
 
-Copyright © 2026 Tyllage LLP. All rights reserved.
+© 2026 Tyllage LLP. All rights reserved.
 
-This repository is **proprietary and not open source**, whether it is public or private. No licence is
-granted to copy, modify, deploy, redistribute or train AI models on its code, content or design. The
-Tyllage name, logo, founders' story and other brand assets may not be reused without written
-permission from Tyllage LLP. Unauthorised use will be treated as infringement. See [LICENSE](LICENSE)
-for the full terms.
+The Tyllage website, including its code, content, designs, illustrations and brand assets, is
+proprietary to Tyllage LLP and is shared under the [Tyllage Proprietary License](LICENSE). No licence
+is granted to use, copy, modify, deploy or redistribute it without Tyllage's prior written permission.
+The Tyllage name, logo, founders' story and other brand assets may not be reused. GitHub's Terms of
+Service let you view and fork public repositories on GitHub; that does not give any further right to
+use this code.
 
-**Contributions:** only Tyllage team members may contribute. Outside issues and pull requests are not
-accepted; see [CONTRIBUTING.md](CONTRIBUTING.md).
+Third-party open-source packages and web fonts used by the site remain under their own licences.
 
-**Security:** report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
+| Document | Purpose |
+| --- | --- |
+| [LICENSE](LICENSE) | Tyllage Proprietary License (all rights reserved) |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Outside contributions are not accepted; workflow for Tyllage team members |
+| [SECURITY.md](SECURITY.md) | How to report a vulnerability privately |
 
-For permission requests, contact [tyllage.co@gmail.com](mailto:tyllage.co@gmail.com).
+For licensing, partnership or permission enquiries, email
+[tyllage.co@gmail.com](mailto:tyllage.co@gmail.com) or contact the team through the
+[Tyllage GitHub organisation](https://github.com/Tyllage).

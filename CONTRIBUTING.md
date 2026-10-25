@@ -1,18 +1,27 @@
-# Contributing
+# Contributing to Tyllage-Web
 
-**This repository does not accept outside contributions.**
+> **Tyllage-Web does not accept outside contributions.**
+> This repository is proprietary and is maintained only by the Tyllage team. Pull requests, patches,
+> issues and feature work from anyone outside the team will be closed without review. Forking or
+> copying this repository does not give you any right to use, run, modify, deploy or redistribute its
+> code or content. See [LICENSE](LICENSE).
 
-Tyllage-Web is proprietary software owned by **Tyllage LLP**. Only members of the Tyllage
-organisation may contribute to it.
+If you are not a member of the Tyllage team:
 
-- Pull requests, patches and issues from people outside Tyllage LLP will be closed without review.
-- Forking this repository does not give you any right to use, copy, modify, deploy or distribute its
-  code or content. See [LICENSE](LICENSE).
-- To report a security problem, follow [SECURITY.md](SECURITY.md). Do not open a public issue.
-- For business, partnership or permission enquiries, email
-  [tyllage.co@gmail.com](mailto:tyllage.co@gmail.com).
+- **Found a security problem?** Report it privately as described in [SECURITY.md](SECURITY.md). Do not
+  open a public issue.
+- **Interested in licensing, a partnership or permission to use Tyllage material?** Email
+  [tyllage.co@gmail.com](mailto:tyllage.co@gmail.com) or contact the team through the
+  [Tyllage GitHub organisation](https://github.com/Tyllage).
+
+The rest of this guide is for **Tyllage team members** only.
 
 ## For Tyllage team members
+
+- All work you do on this repository belongs to Tyllage LLP and is covered by the
+  [Tyllage Proprietary License](LICENSE).
+- Do not copy Tyllage code, content or brand assets into personal projects, other repositories or
+  public places (gists, forums, AI chat tools that keep your data) without approval.
 
 1. Branch from `main` and open a pull request; don't push directly to `main`.
 2. Run `npm run lint` and `npm run build` before pushing. CI runs the same checks.
