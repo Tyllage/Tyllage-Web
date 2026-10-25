@@ -362,10 +362,17 @@ built, deployed and secured independently.
 
 ## License
 
-Copyright © Tyllage LLP. All rights reserved.
+Copyright © 2026 Tyllage LLP. All rights reserved.
 
-This repository is publicly visible, but it is **not open source**. No licence is granted to copy,
-modify or redistribute its code, content or design. The Tyllage name, logo, founders' story and other
-brand assets may not be reused without written permission from Tyllage LLP.
+This repository is **proprietary and not open source**, whether it is public or private. No licence is
+granted to copy, modify, deploy, redistribute or train AI models on its code, content or design. The
+Tyllage name, logo, founders' story and other brand assets may not be reused without written
+permission from Tyllage LLP. Unauthorised use will be treated as infringement. See [LICENSE](LICENSE)
+for the full terms.
+
+**Contributions:** only Tyllage team members may contribute. Outside issues and pull requests are not
+accepted; see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+**Security:** report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 
 For permission requests, contact [tyllage.co@gmail.com](mailto:tyllage.co@gmail.com).

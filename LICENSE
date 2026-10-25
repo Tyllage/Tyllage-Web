@@ -1,0 +1,68 @@
+PROPRIETARY LICENCE — ALL RIGHTS RESERVED
+
+Copyright (c) 2026 Tyllage LLP (UEN T26LL1129K), Singapore. All rights reserved.
+
+This repository and everything in it, including its source code, build scripts,
+configuration, documentation, text, illustrations, images, logos, designs and
+other assets (together, the "Materials"), are the confidential and proprietary
+property of Tyllage LLP and are protected by the copyright, trade mark and other
+intellectual property laws of Singapore and other jurisdictions, including
+international treaties.
+
+1. NO LICENCE GRANTED
+   The Materials are NOT open source. Except as stated in section 3, no licence
+   or right is granted to any person, whether expressly, by implication, by
+   estoppel or otherwise. The fact that this repository may be publicly visible
+   does not grant any right to use the Materials.
+
+2. RESTRICTIONS
+   Without the prior written permission of Tyllage LLP, you may not:
+   (a) copy, reproduce, download for reuse, or mirror the Materials, in whole
+       or in part;
+   (b) modify, adapt, translate, or create derivative works based on the
+       Materials;
+   (c) distribute, publish, sublicense, sell, rent, lease, or otherwise make
+       the Materials available to any third party;
+   (d) deploy, host, or run the Materials, or any derivative of them, for any
+       purpose, whether commercial or non-commercial;
+   (e) use the Materials, in whole or in part, to train, fine-tune, or
+       evaluate any machine learning or artificial intelligence model;
+   (f) use the Tyllage name, logo, trade marks, founders' names, likenesses or
+       story, or any confusingly similar mark, for any purpose; or
+   (g) remove or alter any copyright, trade mark, or proprietary notice.
+
+3. GITHUB TERMS OF SERVICE
+   Where this repository is public on GitHub, GitHub users receive only the
+   limited rights that GitHub's Terms of Service require: to view the
+   repository and to fork it within GitHub's platform. Those rights do not
+   extend to any use described in section 2 and do not permit any use of the
+   Materials outside GitHub's platform.
+
+4. AUTHORISED PERSONS
+   Members, employees and contractors of Tyllage LLP may use the Materials only
+   for the business of Tyllage LLP and only as authorised by Tyllage LLP.
+
+5. NO CONTRIBUTIONS
+   Tyllage LLP does not accept contributions from outside the organisation. Any
+   issue, pull request, patch, suggestion or other material submitted to this
+   repository by a person outside Tyllage LLP is unsolicited, and Tyllage LLP is
+   under no obligation to review, use, or credit it.
+
+6. ENFORCEMENT
+   Any use of the Materials not expressly permitted by this licence is an
+   infringement of the rights of Tyllage LLP. Tyllage LLP reserves all rights
+   and remedies available to it at law and in equity, including injunctive
+   relief, damages, account of profits, takedown notices and the recovery of
+   legal costs.
+
+7. NO WARRANTY
+   The Materials are provided "as is", without warranty of any kind. To the
+   maximum extent permitted by law, Tyllage LLP is not liable for any claim,
+   damage or other liability arising from the Materials.
+
+8. GOVERNING LAW
+   This licence is governed by the laws of the Republic of Singapore, and the
+   courts of Singapore have exclusive jurisdiction over any dispute arising
+   from it.
+
+Permission requests: tyllage.co@gmail.com
