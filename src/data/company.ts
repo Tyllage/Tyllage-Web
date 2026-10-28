@@ -105,8 +105,8 @@ const founders: Founder[] = [
 const team: TeamMember[] = [
   { name: 'Valene He', role: 'Chief Information Security Officer (CISO)' },
   { name: 'Chit Myat', role: 'Chief Business Officer (CBO)' },
-  // Role to be confirmed — add `role` once it is decided.
-  { name: 'Shermaine' },
+  { name: 'Nicole', role: 'Head of Product & Delivery' },
+  { name: 'Shermaine', role: 'Head of AI & Analytics' },
 ];
 
 export const company = {
